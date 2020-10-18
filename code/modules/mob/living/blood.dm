@@ -193,6 +193,7 @@
 		blood_data["real_name"] = real_name
 		blood_data["features"] = dna.features
 		blood_data["factions"] = faction
+		blood_data["color"] = blood_color // 413 -- blood color
 		blood_data["quirks"] = list()
 		for(var/V in roundstart_quirks)
 			var/datum/quirk/T = V
@@ -238,7 +239,8 @@
 		"O-" = list("O-"),
 		"O+" = list("O-", "O+"),
 		"L" = list("L"),
-		"U" = list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+", "L", "U")
+		"U" = list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+", "L", "T" , "U"), // 413 -- troll blood type
+		"T" = list("T") // 413 -- troll blood type
 	)
 
 	var/safe = bloodtypes_safe[bloodtype]
@@ -259,7 +261,7 @@
 		if(drop)
 			if(drop.drips < 5)
 				drop.drips++
-				drop.add_overlay(pick(drop.random_icon_states))
+				drop.set_blood_color(BlendRGB(drop.blood_color,src.blood_color,1/drop.drips)) // 413 change color based on # of drops
 				drop.transfer_mob_blood_dna(src)
 				return
 			else
@@ -267,14 +269,23 @@
 				qdel(drop)//the drip is replaced by a bigger splatter
 		else
 			drop = new(T, get_static_viruses())
+			drop.set_blood_color(src.blood_color) // 413 -- blood color
 			drop.transfer_mob_blood_dna(src)
 			return
 
 	// Find a blood decal or create a new one.
 	var/obj/effect/decal/cleanable/blood/B = locate() in T
+	// 413 -- blood color and the blending thereof
+	var/old_bloodiness = B?.bloodiness // serves as a dual check -- do we have B, and if so, is it bloodful
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
+	if(is_abnormal_blood_color(src.blood_color))
+		if(!old_bloodiness) // either we didn't have B or the B we found had no blood, so we can overwrite its color
+			B.set_blood_color(src.blood_color)
+		else // we found B and it had blood, so we care about its color being a combo of ours and its
+			B.set_blood_color(BlendRGB(src.blood_color,B.blood_color,old_bloodiness/B.bloodiness)) // color blood proportionately to how much was added
+	// 413 end
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)

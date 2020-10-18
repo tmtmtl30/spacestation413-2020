@@ -157,3 +157,5 @@
 
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE
+
+	var/blood_color = BLOOD_COLOR_DEFAULT // 413 -- blood color

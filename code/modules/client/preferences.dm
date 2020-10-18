@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
-	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None")
+	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "horns_troll" = "Nubby", "troll_caste" = "burgundy") // 413 -- troll features
 	var/list/randomise = list(RANDOM_UNDERWEAR = TRUE, RANDOM_UNDERWEAR_COLOR = TRUE, RANDOM_UNDERSHIRT = TRUE, RANDOM_SOCKS = TRUE, RANDOM_BACKPACK = TRUE, RANDOM_JUMPSUIT_STYLE = TRUE, RANDOM_HAIRSTYLE = TRUE, RANDOM_HAIR_COLOR = TRUE, RANDOM_FACIAL_HAIRSTYLE = TRUE, RANDOM_FACIAL_HAIR_COLOR = TRUE, RANDOM_SKIN_TONE = TRUE, RANDOM_EYE_COLOR = TRUE)
 	var/phobia = "spiders"
 
@@ -313,6 +313,27 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<a href='?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a>"
 				dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_SKIN_TONE]'>[(randomise[RANDOM_SKIN_TONE]) ? "Lock" : "Unlock"]</A>"
 				dat += "<br>"
+
+			// 413 start -- DEFINITELY the best thing to do
+			if(istype(pref_species, /datum/species/troll))
+
+				dat += "<td valign='top' width='21%'>"
+
+				dat += "<h3>Blood Color</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=t_caste;task=input'>[features["troll_caste"]]</a><BR>"
+
+				dat += "</td>"
+
+				dat += "<td valign='top' width='21%'>"
+
+				dat += "<h3>Horns</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=horn_type;task=input'>[features["horns_troll"]]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=previous_troll_horn;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_troll_horn;task=input'>&gt;</a><BR>"
+
+				dat += "</td>"
+			// 413 end
 
 			var/mutant_colors
 			if((MUTCOLORS in pref_species.species_traits) || (MUTCOLORS_PARTSONLY in pref_species.species_traits))
@@ -1221,6 +1242,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					backpack = pick(GLOB.backpacklist)
 				if("suit")
 					jumpsuit_style = pick(GLOB.jumpsuitlist)
+				// 413 start
+				if("t_caste")
+					features["troll_caste"] = random_troll_caste()
+					eye_color = sanitize_hexcolor(get_color_from_caste(features["troll_caste"]))
+				if("horn_type")
+					features["horns_troll"] = random_troll_horns()
+				// 413 end
 				if("all")
 					random_character(gender)
 
@@ -1339,6 +1367,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						facial_hairstyle = previous_list_item(facial_hairstyle, GLOB.facial_hairstyles_female_list)
 					else
 						facial_hairstyle = previous_list_item(facial_hairstyle, GLOB.facial_hairstyles_list)
+
+				// 413 start
+				if("horn_type")
+					var/new_troll_horns
+					new_troll_horns = input(user, "Choose your character's horns:", "Character Preference")  as null|anything in GLOB.troll_horns_list
+					if(new_troll_horns)
+						features["horns_troll"] = new_troll_horns
+
+				if("next_troll_horn")
+					features["horns_troll"] = next_list_item(features["horns_troll"], GLOB.troll_horns_list)
+
+				if("previous_troll_horn")
+					features["horns_troll"] = previous_list_item(features["horns_troll"], GLOB.troll_horns_list)
+
+				if("t_caste")
+					var/new_t_caste = input(user, "Choose your character's blood color:", "Character Preference") as null|anything in GLOB.troll_castes
+					if(new_t_caste)
+						features["troll_caste"] = new_t_caste
+						eye_color = sanitize_hexcolor(get_color_from_caste(features["troll_caste"]))
+				// 413 end
 
 				if("underwear")
 					var/new_underwear
@@ -1929,6 +1977,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	character.dna.real_name = character.real_name
+	// 413 start
+	if (istype(pref_species, /datum/species/troll))
+		character.eye_color=sanitize_hexcolor(get_color_from_caste(features["troll_caste"]))
+		if(organ_eyes)
+			if(!initial(organ_eyes.eye_color))
+				organ_eyes.eye_color = eye_color
+			organ_eyes.old_eye_color = eye_color
+	// 413 end
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"

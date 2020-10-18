@@ -384,6 +384,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_moth_antennae"], features["moth_antennae"])
 	READ_FILE(S["feature_moth_markings"], features["moth_markings"])
 	READ_FILE(S["persistent_scars"] , persistent_scars)
+	// 413 start
+	READ_FILE(S["troll_caste"], features["troll_caste"])
+	READ_FILE(S["troll_horn"], features["horns_troll"])
+	// 413 end
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -458,6 +462,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	skin_tone		= sanitize_inlist(skin_tone, GLOB.skin_tones)
 	backpack			= sanitize_inlist(backpack, GLOB.backpacklist, initial(backpack))
 	jumpsuit_style	= sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
+	// 413 start
+	features["troll_caste"]     = sanitize_inlist(features["troll_caste"], GLOB.troll_castes)
+	features["horns_troll"]     = sanitize_inlist(features["horns_troll"], GLOB.troll_horns_list)
+	// 413 end
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
 	playtime_reward_cloak = sanitize_integer(playtime_reward_cloak)
 	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
@@ -508,6 +516,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["skin_tone"]			, skin_tone)
 	WRITE_FILE(S["hairstyle_name"]			, hairstyle)
 	WRITE_FILE(S["facial_style_name"]			, facial_hairstyle)
+	// 413 start
+	WRITE_FILE(S["troll_caste"] , features["troll_caste"])
+	WRITE_FILE(S["troll_horn"] , features["horns_troll"])
+	// 413 end
 	WRITE_FILE(S["underwear"]			, underwear)
 	WRITE_FILE(S["underwear_color"]			, underwear_color)
 	WRITE_FILE(S["undershirt"]			, undershirt)

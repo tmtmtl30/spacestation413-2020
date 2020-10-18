@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 /// Called when two reagents of the same are mixing.
-/datum/reagent/proc/on_merge(data)
+/datum/reagent/proc/on_merge(data,amount) // 413 -- wow.
 	return
 
 /// Called by [/datum/reagents/proc/conditional_update]

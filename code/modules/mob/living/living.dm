@@ -758,12 +758,23 @@
 	if((newdir in GLOB.cardinals) && (prob(50)))
 		newdir = turn(get_dir(target_turf, start), 180)
 	if(!blood_exists)
-		new /obj/effect/decal/cleanable/trail_holder(start, get_static_viruses())
+		// 413 start -- blood color
+		var/obj/effect/decal/cleanable/trail_holder/TH = new(start, get_static_viruses())
+		TH.set_blood_color(src.blood_color)
+		// 413 end
 
 	for(var/obj/effect/decal/cleanable/trail_holder/TH in start)
 		if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 			TH.existing_dirs += newdir
-			TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
+			// 413 start -- blood color
+			var/icon/newTrail
+			if(is_abnormal_blood_color(src.blood_color))
+				newTrail = icon('spacestation413/icons/effects/blood.dmi', trail_type, dir = newdir)
+				newTrail.Blend(src.blood_color, ICON_MULTIPLY)
+			else
+				newTrail = icon('icons/effects/blood.dmi', trail_type, dir = newdir)
+			TH.add_overlay(newTrail)
+			// 413 end
 			TH.transfer_mob_blood_dna(src)
 
 /mob/living/carbon/human/makeTrail(turf/T)
