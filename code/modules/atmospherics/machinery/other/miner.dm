@@ -18,7 +18,7 @@
 	var/spawn_mol = MOLES_CELLSTANDARD * 5
 	var/max_ext_mol = INFINITY
 	var/max_ext_kpa = 6500
-	var/overlay_color = "#FFFFFF"
+	var/overlay_color = ""
 	var/active = TRUE
 	var/power_draw = 0
 	var/power_draw_static = 2000

@@ -29,6 +29,7 @@
 							"moth",
 							"plasmaman",
 							"ethereal",
+							"troll", // 413
 							"other"
 							)
 

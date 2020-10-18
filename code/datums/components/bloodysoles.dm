@@ -21,6 +21,8 @@
 	/// The world.time when we last picked up blood
 	var/last_pickup
 
+	var/bloody_shoe_color = BLOOD_COLOR_DEFAULT // 413 -- blood colors
+
 /datum/component/bloodysoles/Initialize()
 	if(!isclothing(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -59,6 +61,8 @@
 /datum/component/bloodysoles/proc/share_blood(obj/effect/decal/cleanable/pool)
 	last_blood_state = pool.blood_state
 
+	var/old_our_bloodiness = bloody_shoes[last_blood_state] // 413 -- blood color
+
 	// Share the blood between our boots and the blood pool
 	var/total_bloodiness = pool.bloodiness + bloody_shoes[last_blood_state]
 
@@ -68,6 +72,16 @@
 	bloody_shoes[last_blood_state] = new_our_bloodiness
 	pool.bloodiness = total_bloodiness - new_our_bloodiness // Give the pool the remaining blood incase we were limited
 
+	// 413 start -- lord help me
+	if(istype(pool,/obj/effect/decal/cleanable/blood)) //cursed
+		var/obj/effect/decal/cleanable/blood/blood = pool // CURSED
+		if((bloody_shoe_color != blood.blood_color) && total_bloodiness) // we need reason to change
+			bloody_shoe_color = BlendRGB(blood.blood_color,bloody_shoe_color,old_our_bloodiness/total_bloodiness) // we contribute less -> their color matters more
+			// commented out due to footprint color bloat
+			//blood.set_blood_color(bloody_shoe_color)
+			// replaced above with "blood_color = " since that doesn't update the icon
+			blood.blood_color = bloody_shoe_color
+	// 413 end
 	parent_atom.add_blood_DNA(pool.return_blood_DNA())
 	update_icon()
 
@@ -168,6 +182,7 @@
 
 		var/obj/effect/decal/cleanable/blood/footprints/FP = new(get_turf(parent_atom))
 		FP.blood_state = last_blood_state
+		FP.blood_color = bloody_shoe_color // 413 -- blood color
 		FP.entered_dirs |= wielder.dir
 		add_parent_to_footprint(FP)
 		FP.bloodiness = half_our_blood

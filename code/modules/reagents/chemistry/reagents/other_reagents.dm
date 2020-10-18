@@ -1,7 +1,7 @@
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null)
+	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null,"color"=null) // 413 -- blood color
 	name = "Blood"
-	color = "#C80000" // rgb: 200, 0, 0
+	color = BLOOD_COLOR_DEFAULT // 413 blood color
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
@@ -43,11 +43,19 @@
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
 		SetViruses(src, data)
+	// 413 start -- blood color
+	if(is_abnormal_blood_color(data["color"]))
+		color = data["color"]
+	// 413 end
 
-/datum/reagent/blood/on_merge(list/mix_data)
+/datum/reagent/blood/on_merge(list/mix_data,amount) // 413 -- blood color (added "amount")
 	if(data && mix_data)
 		if(data["blood_DNA"] != mix_data["blood_DNA"])
 			data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning if the DNA sample doesn't match.
+		// 413 start -- blood color
+		if(data["color"] != mix_data["color"])
+			color = data["color"] = BlendRGB(data["color"],mix_data["color"],amount/volume)
+		// 413 end
 		if(data["viruses"] || mix_data["viruses"])
 
 			var/list/mix1 = data["viruses"]
@@ -87,6 +95,13 @@
 	var/obj/effect/decal/cleanable/blood/bloodsplatter = locate() in exposed_turf //find some blood here
 	if(!bloodsplatter)
 		bloodsplatter = new(exposed_turf)
+	// 413 -- blood color start
+		bloodsplatter.set_blood_color(data["color"])
+	else
+		var/capped_bloodiness = min(reac_volume, BLOOD_AMOUNT_PER_DECAL)
+		var/bloodiness_ratio = capped_bloodiness / (bloodsplatter.bloodiness + capped_bloodiness) // color change proportional to volume
+		bloodsplatter.set_blood_color(BlendRGB(bloodsplatter.blood_color,data["color"],bloodiness_ratio))
+	// 413 end
 	if(data["blood_DNA"])
 		bloodsplatter.add_blood_DNA(list(data["blood_DNA"] = data["blood_type"]))
 
