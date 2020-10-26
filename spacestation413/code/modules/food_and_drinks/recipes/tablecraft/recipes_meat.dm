@@ -1,4 +1,4 @@
-/datum/crafting_recipe/food/buttkebab
+/datum/crafting_recipe/food/buttkebab // butts
 	name = "Butt Kebab"
 	reqs = list(
 		/obj/item/stack/rods = 1,

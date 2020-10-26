@@ -1,4 +1,4 @@
-/obj/item/reagent_containers/food/snacks/pie/asspie
+/obj/item/reagent_containers/food/snacks/pie/asspie // butts
 	name = "asspie"
 	desc = "A delicious pie made from domesticated donkey, OH WAIT IS THAT A BUTT!"
 	icon = 'spacestation413/icons/obj/food/piecake.dmi'
