@@ -163,6 +163,7 @@
 
 			oldLocFP = new(oldLocTurf)
 			oldLocFP.blood_state = last_blood_state
+			oldLocFP.blood_color = bloody_shoe_color // 413 -- blood color // DEBUG BAD
 			oldLocFP.exited_dirs |= wielder.dir
 			add_parent_to_footprint(oldLocFP)
 			oldLocFP.bloodiness = half_our_blood

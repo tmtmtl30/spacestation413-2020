@@ -31,16 +31,6 @@
 /////////////////////////////////////////////////////
 // begin code mostly copied from /obj/item/storage //
 /////////////////////////////////////////////////////
-
-/obj/item/organ/butt/Initialize()
-	. = ..()
-	PopulateContents()
-
-/obj/item/organ/butt/proc/PopulateContents() // this proc was empty by default on /obj/item/storage
-	// custom code
-
-	// end custom code
-
 /obj/item/organ/butt/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/inv_component = AddComponent(component_type)
