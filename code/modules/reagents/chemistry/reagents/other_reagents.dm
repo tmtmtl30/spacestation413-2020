@@ -1,7 +1,7 @@
 /datum/reagent/blood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null,"color"=null) // 413 -- blood color
 	name = "Blood"
-	color = BLOOD_COLOR_DEFAULT // 413 blood color
+	color = BLOOD_COLOR_DEFAULT // 413 -- blood color
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
@@ -44,7 +44,7 @@
 	if(istype(data))
 		SetViruses(src, data)
 	// 413 start -- blood color
-	if(is_abnormal_blood_color(data["color"]))
+	if(data["color"])
 		color = data["color"]
 	// 413 end
 
@@ -100,7 +100,7 @@
 	else
 		var/capped_bloodiness = min(reac_volume, BLOOD_AMOUNT_PER_DECAL)
 		var/bloodiness_ratio = capped_bloodiness / (bloodsplatter.bloodiness + capped_bloodiness) // color change proportional to volume
-		bloodsplatter.set_blood_color(BlendRGB(bloodsplatter.blood_color,data["color"],bloodiness_ratio))
+		bloodsplatter.set_blood_color(BlendRGB(bloodsplatter.color,data["color"],bloodiness_ratio))
 	// 413 end
 	if(data["blood_DNA"])
 		bloodsplatter.add_blood_DNA(list(data["blood_DNA"] = data["blood_type"]))

@@ -75,12 +75,9 @@
 	// 413 start -- lord help me
 	if(istype(pool,/obj/effect/decal/cleanable/blood)) //cursed
 		var/obj/effect/decal/cleanable/blood/blood = pool // CURSED
-		if((bloody_shoe_color != blood.blood_color) && total_bloodiness) // we need reason to change
-			bloody_shoe_color = BlendRGB(blood.blood_color,bloody_shoe_color,old_our_bloodiness/total_bloodiness) // we contribute less -> their color matters more
-			// commented out due to footprint color bloat
-			//blood.set_blood_color(bloody_shoe_color)
-			// replaced above with "blood_color = " since that doesn't update the icon
-			blood.blood_color = bloody_shoe_color
+		if((bloody_shoe_color != blood.color) && total_bloodiness) // we need reason to change
+			bloody_shoe_color = BlendRGB(blood.color,bloody_shoe_color,old_our_bloodiness/total_bloodiness) // we contribute less -> their color matters more
+			blood.set_blood_color(bloody_shoe_color)
 	// 413 end
 	parent_atom.add_blood_DNA(pool.return_blood_DNA())
 	update_icon()
@@ -163,7 +160,10 @@
 
 			oldLocFP = new(oldLocTurf)
 			oldLocFP.blood_state = last_blood_state
-			oldLocFP.blood_color = bloody_shoe_color // 413 -- blood color // DEBUG BAD
+			// 413 start -- blood color
+			if(last_blood_state == BLOOD_STATE_HUMAN) // different blood states override the color of footprints. fuck me
+				oldLocFP.set_blood_color(bloody_shoe_color)
+			// 413 end
 			oldLocFP.exited_dirs |= wielder.dir
 			add_parent_to_footprint(oldLocFP)
 			oldLocFP.bloodiness = half_our_blood
@@ -183,7 +183,10 @@
 
 		var/obj/effect/decal/cleanable/blood/footprints/FP = new(get_turf(parent_atom))
 		FP.blood_state = last_blood_state
-		FP.blood_color = bloody_shoe_color // 413 -- blood color
+		// 413 start -- blood color
+		if(last_blood_state == BLOOD_STATE_HUMAN) // different blood states override the color of footprints. fuck me
+			FP.set_blood_color(bloody_shoe_color)
+		// 413 end
 		FP.entered_dirs |= wielder.dir
 		add_parent_to_footprint(FP)
 		FP.bloodiness = half_our_blood

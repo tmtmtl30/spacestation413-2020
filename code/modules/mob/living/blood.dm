@@ -248,6 +248,7 @@
 		. = safe
 
 //to add a splatter of blood or other mob liquid.
+// 413 -- blood color note: overridden, below, for xenos and robots. would require tweaking to unify them
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
 	if(get_blood_id() != /datum/reagent/blood)
 		return
@@ -261,7 +262,7 @@
 		if(drop)
 			if(drop.drips < 5)
 				drop.drips++
-				drop.set_blood_color(BlendRGB(drop.blood_color,src.blood_color,1/drop.drips)) // 413 change color based on # of drops
+				drop.set_blood_color(BlendRGB(drop.color,src.blood_color,1/drop.drips)) // 413 -- change color based on # of drops
 				drop.transfer_mob_blood_dna(src)
 				return
 			else
@@ -275,16 +276,15 @@
 
 	// Find a blood decal or create a new one.
 	var/obj/effect/decal/cleanable/blood/B = locate() in T
-	// 413 -- blood color and the blending thereof
+	// 413 start -- blood color and the blending thereof
 	var/old_bloodiness = B?.bloodiness // serves as a dual check -- do we have B, and if so, is it bloodful
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
-	if(is_abnormal_blood_color(src.blood_color))
-		if(!old_bloodiness) // either we didn't have B or the B we found had no blood, so we can overwrite its color
-			B.set_blood_color(src.blood_color)
-		else // we found B and it had blood, so we care about its color being a combo of ours and its
-			B.set_blood_color(BlendRGB(src.blood_color,B.blood_color,old_bloodiness/B.bloodiness)) // color blood proportionately to how much was added
+	if(!old_bloodiness) // either we didn't have B or the B we found had no blood, so we can overwrite its color
+		B.set_blood_color(src.blood_color)
+	else // we found B and it had blood, so we care about its color being a combo of ours and its
+		B.set_blood_color(BlendRGB(src.blood_color,B.color,old_bloodiness/B.bloodiness)) // color blood proportionately to how much was added
 	// 413 end
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)

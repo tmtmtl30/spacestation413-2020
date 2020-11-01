@@ -158,4 +158,4 @@
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE
 
-	var/blood_color = BLOOD_COLOR_DEFAULT // 413 -- blood color
+	var/blood_color = BLOOD_COLOR_DEFAULT // 413 -- blood color. no guarantees if you try to fuck with this for non-humans. robots/xenos have their own shitcode; in some places the define usebloodcolor() is called to tell if it's an exception.

@@ -50,8 +50,8 @@
 
 				gib.add_blood_DNA(dna_to_add)
 
-				 // 413 -- blood color
-				if(source_mob)
+				 // 413 start -- blood color
+				if(source_mob && usebloodcolor(source_mob))
 					gib.set_blood_color(source_mob.blood_color)
 				// 413 end
 

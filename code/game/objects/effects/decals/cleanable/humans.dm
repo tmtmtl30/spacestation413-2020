@@ -1,18 +1,18 @@
 /obj/effect/decal/cleanable/blood
 	name = "blood"
 	desc = "It's red and gooey. Perhaps it's the chef's cooking?"
-	icon = 'icons/effects/blood.dmi'
-	var/blood_color = BLOOD_COLOR_DEFAULT // 413 -- blood color
+	icon = 'spacestation413/icons/effects/blood.dmi' // 413 -- blood color
 	icon_state = "floor1"
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	beauty = -100
+	color = BLOOD_COLOR_DEFAULT // 413 -- blood color
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
 	if (bloodiness)
-		C.set_blood_color(BlendRGB(C.blood_color,blood_color,bloodiness/(C.bloodiness+bloodiness))) // 413 blood color
+		C.set_blood_color(BlendRGB(C.color,color,bloodiness/(C.bloodiness+bloodiness))) // 413 -- blood color
 		C.bloodiness = min((C.bloodiness + bloodiness), BLOOD_AMOUNT_PER_DECAL)
 	return ..()
 
@@ -39,11 +39,11 @@
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
-	icon = 'icons/effects/blood.dmi'
+	icon = 'spacestation413/icons/effects/blood.dmi' // 413 -- blood color
 	desc = "Your instincts say you shouldn't be following these."
-	var/blood_color = BLOOD_COLOR_DEFAULT // 413 -- blood color
 	beauty = -50
 	var/list/existing_dirs = list()
+	// 413 -- blood color note: trail holders don't use the same system for blood color, because of the preexisting xeno/robot shitcode. sorry
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
@@ -51,7 +51,7 @@
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "They look bloody and gruesome."
-	icon = 'icons/effects/blood.dmi'
+	// 413 -- blood color (removed duplicate icon definition)
 	icon_state = "gib1"
 	layer = LOW_OBJ_LAYER
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
@@ -92,7 +92,7 @@
 		if(i > 0)
 			// 413 start -- blood color
 			var/obj/effect/decal/cleanable/blood/splatter/B = new /obj/effect/decal/cleanable/blood/splatter(loc, diseases)
-			B.set_blood_color(blood_color)
+			B.set_blood_color(color)
 			// 413 end
 		if(!step_to(src, get_step(src, direction), 0))
 			break
@@ -150,7 +150,7 @@
 /obj/effect/decal/cleanable/blood/footprints
 	name = "footprints"
 	desc = "WHOSE FOOTPRINTS ARE THESE?"
-	icon = 'icons/effects/footprints.dmi'
+	icon = 'spacestation413/icons/effects/footprints.dmi' // 413 -- blood color
 	icon_state = "blood1"
 	random_icon_states = null
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
@@ -192,43 +192,17 @@
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	cut_overlays()
-	var/blood_is_colored = (is_abnormal_blood_color(blood_color) && blood_state == BLOOD_STATE_HUMAN) // 413 blood color
+
 	for(var/Ddir in GLOB.cardinals)
 		if(entered_dirs & Ddir)
-			// 413 start blood color
-			var/image/bloodstep_overlay
-			var/footprint_identifier_string
-			if(blood_is_colored)
-				footprint_identifier_string = "entered-colored-[blood_color]-[Ddir]"
-				bloodstep_overlay = GLOB.bloody_footprints_cache[footprint_identifier_string]
-				if(!bloodstep_overlay)
-					var/icon/newIcon = icon("spacestation413/icons/effects/footprints.dmi","blood1")
-					newIcon.Blend(blood_color,ICON_MULTIPLY)
-					GLOB.bloody_footprints_cache[footprint_identifier_string] = bloodstep_overlay = image(newIcon, dir = Ddir)
-			else
-				footprint_identifier_string = "entered-[blood_state]-[Ddir]"
-				bloodstep_overlay = GLOB.bloody_footprints_cache[footprint_identifier_string]
-				if(!bloodstep_overlay)
-					GLOB.bloody_footprints_cache[footprint_identifier_string] = bloodstep_overlay = image(icon, "[blood_state]1", dir = Ddir)
-			// 413 end
+			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"]
+			if(!bloodstep_overlay)
+				GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]1", dir = Ddir)
 			add_overlay(bloodstep_overlay)
 		if(exited_dirs & Ddir)
-			// 413 start blood color
-			var/image/bloodstep_overlay
-			var/footprint_identifier_string
-			if(blood_is_colored)
-				footprint_identifier_string = "exited-colored-[blood_color]-[Ddir]"
-				bloodstep_overlay = GLOB.bloody_footprints_cache[footprint_identifier_string]
-				if(!bloodstep_overlay)
-					var/icon/newIcon = icon("spacestation413/icons/effects/footprints.dmi","blood2")
-					newIcon.Blend(blood_color,ICON_MULTIPLY)
-					GLOB.bloody_footprints_cache[footprint_identifier_string] = bloodstep_overlay = image(newIcon, dir = Ddir)
-			else
-				footprint_identifier_string = "exited-[blood_state]-[Ddir]"
-				bloodstep_overlay = GLOB.bloody_footprints_cache[footprint_identifier_string]
-				if(!bloodstep_overlay)
-					GLOB.bloody_footprints_cache[footprint_identifier_string] = bloodstep_overlay = image(icon, "[blood_state]2", dir = Ddir)
-			// 413 end
+			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"]
+			if(!bloodstep_overlay)
+				GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]2", dir = Ddir)
 			add_overlay(bloodstep_overlay)
 
 	alpha = min(BLOODY_FOOTPRINT_BASE_ALPHA + (255 - BLOODY_FOOTPRINT_BASE_ALPHA) * bloodiness / (BLOOD_ITEM_MAX / 2), 255)
