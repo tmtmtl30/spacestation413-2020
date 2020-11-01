@@ -95,7 +95,7 @@
 	var/obj/effect/decal/cleanable/blood/bloodsplatter = locate() in exposed_turf //find some blood here
 	if(!bloodsplatter)
 		bloodsplatter = new(exposed_turf)
-	// 413 -- blood color start
+	// 413 start -- blood color
 		bloodsplatter.set_blood_color(data["color"])
 	else
 		var/capped_bloodiness = min(reac_volume, BLOOD_AMOUNT_PER_DECAL)
