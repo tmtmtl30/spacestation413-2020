@@ -1242,7 +1242,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					backpack = pick(GLOB.backpacklist)
 				if("suit")
 					jumpsuit_style = pick(GLOB.jumpsuitlist)
-				// 413 start
+				// 413 start -- trolls
 				if("t_caste")
 					features["troll_caste"] = random_troll_caste()
 					eye_color = sanitize_hexcolor(get_color_from_caste(features["troll_caste"]))
@@ -1368,7 +1368,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					else
 						facial_hairstyle = previous_list_item(facial_hairstyle, GLOB.facial_hairstyles_list)
 
-				// 413 start
+				// 413 start -- trolls
 				if("horn_type")
 					var/new_troll_horns
 					new_troll_horns = input(user, "Choose your character's horns:", "Character Preference")  as null|anything in GLOB.troll_horns_list
@@ -1977,7 +1977,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	character.dna.real_name = character.real_name
-	// 413 start
+	// 413 start -- troll eye color
 	if (istype(pref_species, /datum/species/troll))
 		character.eye_color=sanitize_hexcolor(get_color_from_caste(features["troll_caste"]))
 		if(organ_eyes)

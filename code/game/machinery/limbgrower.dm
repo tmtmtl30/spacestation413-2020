@@ -29,7 +29,7 @@
 							"moth",
 							"plasmaman",
 							"ethereal",
-							"troll", // 413
+							"troll", // 413 -- trolls
 							"other"
 							)
 

@@ -264,11 +264,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE,list/excluded_zones)
 	//what should be put in if there is no mutantorgan (brains handled seperately)
 	var/list/slot_mutantorgans = list(ORGAN_SLOT_BRAIN = mutantbrain, ORGAN_SLOT_HEART = mutantheart, ORGAN_SLOT_LUNGS = mutantlungs, ORGAN_SLOT_APPENDIX = mutantappendix, \
-	ORGAN_SLOT_EYES = mutanteyes, ORGAN_SLOT_EARS = mutantears, ORGAN_SLOT_TONGUE = mutanttongue, ORGAN_SLOT_LIVER = mutantliver, ORGAN_SLOT_STOMACH = mutantstomach, \
-	ORGAN_SLOT_BUTT = mutantbutt) // 413 butts
+	ORGAN_SLOT_EYES = mutanteyes, ORGAN_SLOT_EARS = mutantears, ORGAN_SLOT_TONGUE = mutanttongue, ORGAN_SLOT_LIVER = mutantliver, ORGAN_SLOT_STOMACH = mutantstomach, \ // 413 -- butts (see next line)
+	ORGAN_SLOT_BUTT = mutantbutt) // 413 -- butts
 
 	for(var/slot in list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_APPENDIX, \
-	ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_STOMACH, ORGAN_SLOT_BUTT)) // 413 butts
+	ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_STOMACH, ORGAN_SLOT_BUTT)) // 413 -- butts
 
 		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
@@ -643,7 +643,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER)
 			else
 				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', E.eye_icon_state, -BODY_LAYER)
-			if(((EYECOLOR in species_traits) || istroll(H)) && E) // 413 troll caste eye color - adding the trait lets them pick, which is bad, so i snowflaked it (also bad)
+			if(((EYECOLOR in species_traits) || istroll(H)) && E) // 413 -- troll caste eye color - adding the trait lets them pick, which is bad, so i snowflaked it (also bad)
 				eye_overlay.color = "#" + H.eye_color
 			if(OFFSET_FACE in H.dna.species.offset_features)
 				eye_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
