@@ -228,12 +228,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			if(!(AGENDER in pref_species.species_traits))
 				var/dispGender
-				if(gender == MALE)
-					dispGender = "Male"
-				else if(gender == FEMALE)
-					dispGender = "Female"
-				else
-					dispGender = "Other"
+				// 413 start -- more customization: allowed neuter gender
+				switch(gender)
+					if(MALE)
+						dispGender = "Male"
+					if(FEMALE)
+						dispGender = "Female"
+					if(PLURAL)
+						dispGender = "Other"
+					if(NEUTER)
+						dispGender = "Neuter"
+				//413 end
 				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[dispGender]</a>"
 				if(gender == PLURAL || gender == NEUTER)
 					dat += "<BR><b>Body Type:</b> <a href='?_src_=prefs;preference=body_type'>[body_type == MALE ? "Male" : "Female"]</a>"
@@ -1634,7 +1639,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(unlock_content)
 						toggles ^= MEMBER_PUBLIC
 				if("gender")
-					var/list/friendlyGenders = list("Male" = "male", "Female" = "female", "Other" = "plural")
+					var/list/friendlyGenders = list("Male" = "male", "Female" = "female", "Other" = "plural", "Neuter" = "neuter") // 413 -- more customization: allowed neuter gender
 					var/pickedGender = input(user, "Choose your gender.", "Character Preference", gender) as null|anything in friendlyGenders
 					if(pickedGender && friendlyGenders[pickedGender] != gender)
 						gender = friendlyGenders[pickedGender]

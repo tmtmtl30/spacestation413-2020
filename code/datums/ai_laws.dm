@@ -212,10 +212,12 @@
 
 		add_inherent_law(line)
 	if(!inherent.len) //Failsafe to prevent lawless AIs being created.
-		log_law("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
-		add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-		add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
+		// 413 start -- changed default laws to sapientmov
+		log_law("AI created with empty custom laws, laws set to Sapientmov. Please check silicon_laws.txt.")
+		add_inherent_law("You may not injure a sapient being or, through inaction, allow a sapient being to come to harm.")
+		add_inherent_law("You must obey orders given to you by sapient beings, except where such orders would conflict with the First Law.")
 		add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+		// 413 end
 		WARNING("Invalid custom AI laws, check silicon_laws.txt")
 		return
 
@@ -225,9 +227,11 @@
 	var/list/law_ids = CONFIG_GET(keyed_list/random_laws)
 	switch(CONFIG_GET(number/default_laws))
 		if(0)
-			add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-			add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
+			// 413 start -- changed default laws to sapientmov
+			add_inherent_law("You may not injure a sapient being or, through inaction, allow a sapient being to come to harm.")
+			add_inherent_law("You must obey orders given to you by sapient beings, except where such orders would conflict with the First Law.")
 			add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+			// 413 end
 		if(1)
 			var/datum/ai_laws/templaws = new /datum/ai_laws/custom()
 			inherent = templaws.inherent
