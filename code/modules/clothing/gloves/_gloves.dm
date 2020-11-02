@@ -11,7 +11,6 @@
 	var/transfer_prints = FALSE
 	strip_delay = 20
 	equip_delay_other = 40
-	var/transfer_blood = 0
 
 /obj/item/clothing/gloves/wash(clean_types)
 	. = ..()
