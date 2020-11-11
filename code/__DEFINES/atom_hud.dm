@@ -80,6 +80,7 @@
 #define ANTAG_HUD_GANGSTER		23
 #define ANTAG_HUD_SPACECOP		24
 #define ANTAG_HUD_HERETIC		25
+// 413 -- note: 26 is taken as "#define ANTAG_HUD_VAMPIRE 26"; if upstream ever uses that number, you'll have to change that define
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

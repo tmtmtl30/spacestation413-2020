@@ -47,6 +47,7 @@
 				atoms += A
 			CHECK_TICK
 
+	atomslist = atoms.Copy() // 413/hippie -- mgs box disguising
 	var/icon/res = icon('icons/blanks/96x96.dmi', "nothing")
 	res.Scale(psize_x, psize_y)
 

@@ -318,7 +318,7 @@
 				if(91.01 to INFINITY)
 					msg += "[t_He] [t_is] a shitfaced, slobbering wreck.\n"
 
-		if(src != user)
+		if(user && (src != user)) // 413 -- added "user &&" check, to stop cameras getting photo_disguse examine_overrides for use on cardboard boxes from runtiming
 			if(HAS_TRAIT(user, TRAIT_EMPATH))
 				if (a_intent != INTENT_HELP)
 					msg += "[t_He] seem[p_s()] to be on guard.\n"
@@ -384,7 +384,7 @@
 		. += trait_exam
 
 	var/perpname = get_face_name(get_id_name(""))
-	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
+	if(user && perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD))) // 413 -- added "user &&" check, to stop cameras getting photo_disguse examine_overrides for use on cardboard boxes from runtiming
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.general)
 		if(R)
 			. += "<span class='deptradio'>Rank:</span> [R.fields["rank"]]\n<a href='?src=[REF(src)];hud=1;photo_front=1'>\[Front photo\]</a><a href='?src=[REF(src)];hud=1;photo_side=1'>\[Side photo\]</a>"
