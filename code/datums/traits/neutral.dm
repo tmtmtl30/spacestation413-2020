@@ -21,13 +21,13 @@
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.add_blocked_language(/datum/language/common)
-	if(ishumanbasic(H))
+	if(ishumanbasic(H) || istroll(H)) // 413 -- added "|| istroll(H)", as trolls don't get their own specific nonhuman language either
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.remove_blocked_language(/datum/language/common)
-	if(ishumanbasic(H))
+	if(ishumanbasic(H) || istroll(H)) // 413 -- added "|| istroll(H)", as trolls don't get their own specific nonhuman language either
 		H.remove_language(/datum/language/uncommon)
 
 /datum/quirk/vegetarian
