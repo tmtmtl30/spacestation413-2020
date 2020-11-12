@@ -955,6 +955,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_ALIEN, "Make Alien")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURRBATION, "Toggle Purrbation")
+	VV_DROPDOWN_OPTION(VV_HK_MAKE_CLUWNE, "Make Cluwne") // 413/yogs -- make cluwne
 
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
@@ -1055,6 +1056,14 @@
 			var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(src)] from purrbation.</span>"
 			message_admins(msg)
 			admin_ticket_log(src, msg)
+	// 413/yogs start -- adds make cluwne verb in VV, allowing cluwneification
+	if(href_list[VV_HK_MAKE_CLUWNE])
+		if(!check_rights(R_SPAWN))
+			return
+		message_admins("<span class='notice'>[key_name(usr)] has made [key_name(src)] into a Cluwne.</span>")
+		cluwneify()
+		return
+	// 413/yogs end
 
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)

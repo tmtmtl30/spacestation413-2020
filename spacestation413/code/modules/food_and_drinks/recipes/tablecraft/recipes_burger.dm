@@ -6,6 +6,6 @@
 			/obj/item/organ/butt = 1
 	)
 
-	result = /obj/item/reagent_containers/food/snacks/burger/assburger
+	result = /obj/item/food/burger/assburger
 	subcategory = CAT_BURGER
 
