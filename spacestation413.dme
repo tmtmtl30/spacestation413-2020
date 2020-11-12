@@ -3262,6 +3262,7 @@
 #include "spacestation413\code\datums\diseases\cluwnification.dm"
 #include "spacestation413\code\datums\mutations\mutations.dm"
 #include "spacestation413\code\game\gamemodes\dynamic\dynamic_rulesets_latejoin.dm"
+#include "spacestation413\code\game\gamemodes\dynamic\dynamic_rulesets_midround.dm"
 #include "spacestation413\code\game\gamemodes\dynamic\dynamic_rulesets_roundstart.dm"
 #include "spacestation413\code\game\gamemodes\vampire\grave_fever.dm"
 #include "spacestation413\code\game\gamemodes\vampire\traitor_vamp.dm"
