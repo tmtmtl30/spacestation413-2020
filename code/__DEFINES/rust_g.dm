@@ -47,6 +47,15 @@
 
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
 
+#define rustg_file_read(fname) call(RUST_G, "file_read")(fname)
+#define rustg_file_write(text, fname) call(RUST_G, "file_write")(text, fname)
+#define rustg_file_append(text, fname) call(RUST_G, "file_append")(text, fname)
+
+#ifdef RUSTG_OVERRIDE_BUILTINS
+#define file2text(fname) rustg_file_read(fname)
+#define text2file(text, fname) rustg_file_append(text, fname)
+#endif
+
 #define rustg_git_revparse(rev) call(RUST_G, "rg_git_revparse")(rev)
 #define rustg_git_commit_date(rev) call(RUST_G, "rg_git_commit_date")(rev)
 
@@ -69,3 +78,11 @@
 #define rustg_sql_connected(handle) call(RUST_G, "sql_connected")(handle)
 #define rustg_sql_disconnect_pool(handle) call(RUST_G, "sql_disconnect_pool")(handle)
 #define rustg_sql_check_query(job_id) call(RUST_G, "sql_check_query")("[job_id]")
+
+#define rustg_url_encode(text) call(RUST_G, "url_encode")(text)
+#define rustg_url_decode(text) call(RUST_G, "url_decode")(text)
+
+#ifdef RUSTG_OVERRIDE_BUILTINS
+#define url_encode(text) rustg_url_encode(text)
+#define url_decode(text) rustg_url_decode(text)
+#endif

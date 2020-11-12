@@ -21,7 +21,7 @@ map metastation
 endmap
 
 map pubbystation
-	votable
+	default
 endmap
 
 map deltastation

@@ -3,6 +3,13 @@
 #Ignore everything in datafolder and subdirectories
 /data/**/*
 /tmp/**/*
+/config/title_music/**/*
+/config/title_screens/**/*
+/config/jukebox_music/**/*
+/icons/default_title.dmi
+/config/title_screens/**/*
+/config/dbconfig.txt
+config/dbconfig.txt
 
 #Ignore byond config folder.
 /cfg/**/*
