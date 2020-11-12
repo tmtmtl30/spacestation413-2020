@@ -3,8 +3,7 @@
 	reqs = list(
 		/datum/reagent/consumable/blackpepper = 1,
 		/datum/reagent/consumable/salt = 1,
-		/obj/item/reagent_containers/food/snacks/pie/plain = 1,
+		/obj/item/food/pie/plain = 1,
 		/obj/item/organ/butt = 1)
-	result = /obj/item/reagent_containers/food/snacks/pie/asspie
+	result = /obj/item/food/pie/asspie
 	subcategory = CAT_PIE
-
