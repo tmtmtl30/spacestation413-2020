@@ -12,6 +12,7 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	disliked_food = GROSS | DAIRY
 	liked_food = JUNKFOOD | MEAT
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
 /datum/species/troll/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
 	if(H.dna.features["ears"] == "Cat")
