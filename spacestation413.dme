@@ -1,4 +1,4 @@
-// DM Environment file for tgstation.dme.
+// DM Environment file for spacestation413.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
 // New source code should be placed in .dm files: choose File/New --> Code File.
 // BEGIN_INTERNALS
@@ -3302,7 +3302,6 @@
 #include "spacestation413\code\modules\food_and_drinks\recipes\tablecraft\recipes_pie.dm"
 #include "spacestation413\code\modules\hydroponics\grown\buttflower.dm"
 #include "spacestation413\code\modules\mob\dead\new_player\sprite_accessories.dm"
-#include "spacestation413\code\modules\mob\living\living_defines.dm"
 #include "spacestation413\code\modules\mob\living\carbon\carbon.dm"
 #include "spacestation413\code\modules\mob\living\carbon\human\emote.dm"
 #include "spacestation413\code\modules\mob\living\carbon\human\human.dm"

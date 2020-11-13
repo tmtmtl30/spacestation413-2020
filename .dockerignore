@@ -22,6 +22,11 @@ tgstation.int
 tgstation.rsc
 tgstation.lk
 tgstation.dyn.rsc
+spacestation413.dmb
+spacestation413.int
+spacestation413.rsc
+spacestation413.lk
+spacestation413.dyn.rsc
 libmariadb.dll
 rust_g.dll
 BSQL.dll
