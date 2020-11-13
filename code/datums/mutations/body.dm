@@ -142,7 +142,10 @@
 			if(1)
 				owner.emote("twitch")
 			if(2 to 3)
-				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced=name)
+				if(owner.job == "Chaplain")
+					owner.say("[prob(50) ? ";" : ""][pick("FECK", "DRINK", "ARSE", "GIRLS", "DRRRRINK", "GOBSHITE", "THAT WOULD BE AN ECUMENICAL MATTER", "MY LOVELY LOVELY LOVELY HORSE", "I LOVE MY BRICK", "FECK OFF", "FECK OFF, CUP", "DON'T TELL ME I'M STILL ON THAT FECKING STATION")]", forced=name)
+				else
+					owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced=name)
 		var/x_offset_old = owner.pixel_x
 		var/y_offset_old = owner.pixel_y
 		var/x_offset = owner.pixel_x + rand(-2,2)
