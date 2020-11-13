@@ -860,7 +860,12 @@
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		else
-			limb.icon = 'icons/mob/human_parts.dmi'
+			// 413 start -- trolls. better troll body sprites
+			if(species_id == "troll") // special snowflake handling for perfect greyscale troles
+				limb.icon = 'spacestation413/icons/mob/human_parts.dmi'
+			else
+				limb.icon = 'icons/mob/human_parts.dmi'
+			// 413 end
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
 			else
