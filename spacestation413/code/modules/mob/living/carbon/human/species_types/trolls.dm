@@ -2,12 +2,11 @@
 	name = "troll"
 	id = "troll"
 	default_color = "c4c4c4"
-	species_traits = list(MUTCOLORS,HAIR,FACEHAIR,LIPS,HAS_FLESH,HAS_BONE,TROLLHORNS)
-	mutant_bodyparts = list("mcolor" = "c4c4c4", "tail_human" = "None", "wings" = "None")
+	species_traits = list(HAIR,FACEHAIR,LIPS,HAS_FLESH,HAS_BONE,TROLLHORNS)
+	mutant_bodyparts = list("tail_human" = "None", "wings" = "None")
 	use_skintones = 0
-	fixed_mut_color="c4c4c4"
 	hair_color="222222"
-	limbs_id = "human"
+	limbs_id = "troll"
 	exotic_bloodtype = "T"
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	disliked_food = GROSS | DAIRY
