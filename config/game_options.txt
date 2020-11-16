@@ -365,7 +365,7 @@ RANDOM_LAWS corporate
 #RANDOM_LAWS peacekeeper
 #RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
-#RANDOM_LAWS yudkowsky
+RANDOM_LAWS yudkowsky
 #RANDOM_LAWS airisk
 
 ## Bad idea laws. Probably shouldn't enable these
