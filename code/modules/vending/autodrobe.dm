@@ -9,6 +9,7 @@
 	products = list(/obj/item/clothing/suit/chickensuit = 1,
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/suit/hooded/husky_costume = 1, // 413 -- husky costume. should probably be re-added if autodrobe.dm gets a conflict when rebasing
+					/obj/item/clothing/mask/spacestation413/fake_horns = 2, // 413 -- fake troll horns.
 					/obj/item/clothing/under/rank/civilian/clown/blue = 1,
 					/obj/item/clothing/under/rank/civilian/clown/green = 1,
 					/obj/item/clothing/under/rank/civilian/clown/yellow = 1,

@@ -124,3 +124,8 @@
 			qdel(src)
 			return
 	. = ..()
+
+/obj/item/clothing/mask/spacestation413/fake_horns
+	name = "pair of fake horns"
+	desc = "A cheap pair of fake troll horns."
+	icon_state = "fake_horns"
