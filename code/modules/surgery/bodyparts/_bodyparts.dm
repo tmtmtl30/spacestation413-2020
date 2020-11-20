@@ -852,7 +852,12 @@
 
 	if(is_organic_limb())
 		if(should_draw_greyscale)
-			limb.icon = 'icons/mob/human_parts_greyscale.dmi'
+			// 413 start -- trolls, spurdos. better troll body sprites, and spurdo sprites. mirrored below
+			if(SS413_LIMB_ICONS in species_flags_list)
+				limb.icon = 'spacestation413/icons/mob/human_parts_greyscale.dmi'
+			else
+				limb.icon = 'icons/mob/human_parts_greyscale.dmi' // the normal line, indented once
+			// 413 end
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
 			else if(use_digitigrade)
@@ -860,11 +865,11 @@
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		else
-			// 413 start -- trolls. better troll body sprites
-			if(species_id == "troll") // special snowflake handling for perfect greyscale troles
+			// 413 start -- trolls, spurdos. better troll body sprites, and spurdo sprites. mirror of above
+			if(SS413_LIMB_ICONS in species_flags_list)
 				limb.icon = 'spacestation413/icons/mob/human_parts.dmi'
 			else
-				limb.icon = 'icons/mob/human_parts.dmi'
+				limb.icon = 'icons/mob/human_parts.dmi' // the normal line, indented once
 			// 413 end
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"

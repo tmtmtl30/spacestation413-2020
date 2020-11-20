@@ -2,7 +2,7 @@
 	name = "troll"
 	id = "troll"
 	default_color = "c4c4c4"
-	species_traits = list(HAIR,FACEHAIR,LIPS,HAS_FLESH,HAS_BONE,TROLLHORNS)
+	species_traits = list(HAIR,FACEHAIR,LIPS,HAS_FLESH,HAS_BONE,TROLLHORNS,SS413_LIMB_ICONS)
 	mutant_bodyparts = list("tail_human" = "None", "wings" = "None")
 	use_skintones = 0
 	hair_color="222222"

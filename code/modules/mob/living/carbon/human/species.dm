@@ -374,6 +374,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	for(var/X in inherent_traits)
 		ADD_TRAIT(C, X, SPECIES_TRAIT)
 
+	// 413 start -- spurdos.
+	if(SPURDOVOICE in species_traits)
+		C.dna.add_mutation(SPURDOMUT)
+	// 413 end
+
 	if(TRAIT_VIRUSIMMUNE in inherent_traits)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
@@ -416,6 +421,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		C.Digitigrade_Leg_Swap(TRUE)
 	for(var/X in inherent_traits)
 		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
+
+	// 413 start -- spurdos.
+	if (C.dna.check_mutation(SPURDOMUT) && !(SPURDOVOICE in new_species.species_traits))
+		C.dna.remove_mutation(SPURDOMUT)
+	// 413 end
 
 	//If their inert mutation is not the same, swap it out
 	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(C.dna.mutation_index) && (inert_mutation in C.dna.mutation_index))
